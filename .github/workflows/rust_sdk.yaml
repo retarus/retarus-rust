@@ -1,0 +1,62 @@
+name: fax4app_sdk_rust_pipeline
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: clippy
+          override: true
+        - uses: actions/cache@v3
+            with:
+              path: target/
+              key: gh_action_retaurs_sdk_rust
+      - name: build retarus
+        run: cargo build --package retarus --release
+
+  testing:
+    needs: build
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: clippy
+          override: true
+      - uses: actions/cache@v3
+        with: 
+            sharedKey: gh_action_retaurs_sdk_rust
+      - name: run retarus-tests
+        run: cargo test --release
+
+      - name: Check formatting
+        uses: actions-rs/clippy@master
+        with:
+          args: -D warnings
+
+  deploy:
+    needs: testing
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+      - uses: actions/cache@v3
+        with: 
+            sharedKey: gh_action_retaurs_sdk_rust
+      - uses: katyo/publish-crates@v1
+        with:
+            registry-token: ${{ secrets.CARGO_SECRET }}

@@ -1,0 +1,14 @@
+[package]
+name = "retarus-tests"
+version = "0.1.0"
+authors = ["Michael Lichtenecker <michael.lichtenecker@retarus.de>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1.19.2", features = ["full"] }
+retarus = { version = "0.1.0", path= "../retarus" }
+config = "0.13.1"
+serde = { version = "1", features = ["derive"] }
+serde_derive = "1.0.137"

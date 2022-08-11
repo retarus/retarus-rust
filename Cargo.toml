@@ -1,0 +1,8 @@
+[workspace]
+
+members = [
+    "retarus",
+    "examples",
+    "examples/fax_daemon",
+    "retarus-tests"
+]

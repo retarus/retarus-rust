@@ -1,0 +1,14 @@
+[package]
+name = "examples"
+version = "0.0.0"
+publish = false
+edition = "2018"
+
+[dependencies]
+retarus = { version = "0.1.0", path= "../retarus" }
+tokio = { version = "1.19.2", features = ["full"]}
+
+[[example]]
+name = "fax_async_application"
+path = "fax_async_application.rs"
+

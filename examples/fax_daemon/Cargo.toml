@@ -1,0 +1,16 @@
+[package]
+name = "fax_daemon"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+retarus = { version = "0.1.0", path= "../../retarus" }
+tokio = { version = "1.19.2", features = ["full"]}
+crossbeam-channel = "0.4.0"
+notify = "4.0.17"
+serde = "1.0.117"
+serde_json = "1.0.59"
+
+[dev-dependencies]
