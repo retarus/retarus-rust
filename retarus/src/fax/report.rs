@@ -1,5 +1,3 @@
-use std::{error::Error, fmt};
-
 use serde::{Deserialize, Serialize};
 
 use super::document::Document;

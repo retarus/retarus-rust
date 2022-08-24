@@ -1,8 +1,6 @@
 use serde::{Serialize, Deserialize};
 
-use crate::general::report::Report;
-
-
+use super::report::Report;
 
 
 /// Represents the response that will be send by the server if it reutrns a 200 or 201. 

@@ -1,11 +1,12 @@
 
 use config::{ConfigError, Config, File};
-use retarus::general::{document::Document, creds::Credentials};
+use retarus::{general::{creds::Credentials}, fax::document::Document};
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
 pub struct Settings {
     pub username: String,
+    pub sms_password: String,
     pub password: String,
     pub endpoint: String
 }
@@ -39,4 +40,8 @@ pub fn provide_test_file() -> Document {
 pub fn provide_test_credentials() -> Credentials {
     let s = provide_settings();
     Credentials::new(s.username.as_str(), s.password.as_str())
+}
+pub fn provide_sms_credentials() -> Credentials {
+    let s = provide_settings();
+    Credentials::new(s.username.as_str(), s.sms_password.as_str())
 }

@@ -1,9 +1,9 @@
 
 use std::{fs, error::Error};
 use retarus::general::creds::Credentials;
-use retarus::general::document::Document;
-use retarus::general::job::JobBuilder;
-use retarus::fax::_async::client::ClientSDK;
+use retarus::fax::document::Document;
+use retarus::fax::job::JobBuilder;
+use retarus::fax::client::ClientSDK;
 use retarus::general::uri::Region;
 
 
@@ -30,11 +30,17 @@ fn read_file() -> Result<Option<Document>, Box<dyn Error>>{
 async fn main() {
     // First we need to create a credentails object to authenticate ourselfs.
 
+    let user_id = std::env::var("retarus_userid").unwrap();
+    let password = std::env::var("retarus_fax_password").unwrap();
+    
+    let customer_number = std::env::var("retarus_customer_number").unwrap();
+
+
     // Now lets create a client
     let client = ClientSDK::builder()
-    .set_customer_number("99999".to_string())
+    .set_customer_number(customer_number)
     .set_region(Region::Europe)
-    .set_credentiale(creds)
+    .set_credentiale(Credentials::new(user_id.as_str(), password.as_str()))
     .build();
     
     // Now lets read a file of a directory.

@@ -1,6 +1,7 @@
 use std::time::Duration;
 
-use retarus::{general::job::Job, fax::{_async::client::ClientSDK, responses::{BulkGet, BulkDelete}}};
+
+use retarus::fax::{job::Job, client::ClientSDK};
 
 use crate::provider::{provide_test_credentials, provide_test_file};
 
@@ -54,7 +55,6 @@ async fn test_delete_fax_report() {
 async fn test_bulk_operations() {
     let ji = send_fax().await;
     let client = create_client();
-    //let payload = ReportsAction{action: "GET".to_string(), job_ids: vec![ji]};
     let job_ids = vec![ji];
     let res = client.perform_bulk_get(job_ids.clone(), None).await;
     println!("{:?}", res);

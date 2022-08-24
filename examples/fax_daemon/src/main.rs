@@ -1,11 +1,11 @@
 use notify::{watcher, DebouncedEvent, RecursiveMode, Watcher};
-use retarus::fax::responses::FaxJobResponse;
-use retarus::fax::sync::client::*;
+use retarus::fax::document::Document;
+use retarus::fax::job::Job;
+use retarus::fax::report::Report;
+use retarus::fax::client::*;
 use retarus::general::creds::Credentials;
-use retarus::general::document::Document;
-use retarus::general::job::Job;
-use retarus::general::report::{self, Report, ReportResponse};
 use retarus::general::uri::Region;
+use retarus::sms::client::blocking;
 use std;
 use std::fs::File;
 use std::io::Write;
@@ -13,6 +13,7 @@ use std::path::PathBuf;
 use std::sync::mpsc::channel;
 use std::time::Duration;
 use std::{error::Error, thread};
+
 
 fn is_string_numeric(str: &&str) -> bool {
     for c in str.chars() {
@@ -65,11 +66,18 @@ fn main() {
     // below will be monitored for changes.
     watcher.watch("out", RecursiveMode::Recursive).unwrap();
 
+
+    // Load the credentails from environment variables
+    let user_id = std::env::var("retarus_userid").unwrap();
+    let password = std::env::var("retarus_fax_password").unwrap();
+    
+    let customer_number = std::env::var("retarus_customer_number").unwrap();
+
     // create a sdk instance with all needed parameters
     let sdk = ClientSDK::builder()
         .set_region(Region::Europe)
-        .set_customer_number("99999".to_string())
-        .set_credentiale(creds)
+        .set_customer_number(customer_number)
+        .set_credentiale(Credentials::new(user_id.as_str(), password.as_str()))
         .build();
 
     loop {
@@ -84,13 +92,13 @@ fn main() {
                 let job = create_job(path).unwrap().unwrap();
 
                 // send the fax
-                let res = sdk.send_job(None, job).unwrap();
+                let res = blocking(sdk.send_job(None, job)).unwrap();
                 println!("Created and send Fax");
                 let job_id = res.job_id;
                 let mut is_processed = false;
                 // wait until the job has been processed to create a local copy of the fax report
                 while is_processed == false {
-                    let report_res = sdk.get_fax_report(job_id.clone(), None).unwrap();
+                    let report_res = blocking(sdk.get_fax_report(job_id.clone(), None)).unwrap();
                     if report_res
                         .recipient_status
                         .get(0)
