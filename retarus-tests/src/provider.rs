@@ -2,30 +2,7 @@
 use config::{ConfigError, Config, File};
 use retarus::{general::{creds::Credentials}, fax::document::Document};
 use serde::Deserialize;
-
-#[derive(Debug, Deserialize)]
-pub struct Settings {
-    pub username: String,
-    pub sms_password: String,
-    pub password: String,
-}
-impl Settings {
-    pub fn new() -> Result<Self, ConfigError> {
-
-        let s = Config::builder()
-            // Start off by merging in the "default" configuration file
-            .add_source(File::with_name("assets/settings.toml"))
-            .build()?;
-
-        // You can deserialize (and thus freeze) the entire configuration as
-        s.try_deserialize()
-    }
-}
-
-
-pub fn provide_settings() -> Settings {
-    Settings::new().unwrap()
-}
+use std::env;
 
 
 pub fn provide_test_file() -> Document {
@@ -37,10 +14,12 @@ pub fn provide_test_file() -> Document {
 
 
 pub fn provide_test_credentials() -> Credentials {
-    let s = provide_settings();
-    Credentials::new(s.username.as_str(), s.password.as_str())
+    Credentials::new(env::var("retarus_userid").unwrap().as_str(), env::var("retarus_fax_password").unwrap().as_str())
 }
 pub fn provide_sms_credentials() -> Credentials {
-    let s = provide_settings();
-    Credentials::new(s.username.as_str(), s.sms_password.as_str())
+    Credentials::new(env::var("retarus_userid").unwrap().as_str(), env::var("retarus_sms_password").unwrap().as_str())
+}
+
+pub fn provide_customer_number() -> String {
+    env::var("retarus_customer_number").unwrap()
 }

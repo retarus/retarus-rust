@@ -3,12 +3,12 @@ use std::time::Duration;
 
 use retarus::fax::{job::Job, client::ClientSDK};
 
-use crate::provider::{provide_test_credentials, provide_test_file};
+use crate::provider::{provide_test_credentials, provide_test_file, provide_customer_number};
 
 
 fn create_client() -> ClientSDK {
     let client = ClientSDK::builder()
-        .set_customer_number("99999".to_string())
+        .set_customer_number(provide_customer_number())
         .set_credentiale(provide_test_credentials())
         .build();
     return client;
