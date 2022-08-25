@@ -18,7 +18,7 @@ impl ClientSDK {
     /// Create a ClientSDK instance with builder, just set the nessecary parameters and you are ready to go:
     /// ## Example
     /// ```rust
-    /// use retarus::fax::_async::client::ClientSDK;
+    /// use retarus::fax::client::ClientSDK;
     /// use retarus::general::creds::Credentials;
     ///
     /// let creds = Credentials::new("your_user_id", "your password");

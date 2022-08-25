@@ -16,8 +16,8 @@ impl Document {
     /// 
     /// # Examples
     /// ```rust
-    /// use retarus::general::document::Document;
-    /// use retarus::general::job::Job;
+    /// use retarus::fax::document::Document;
+    /// use retarus::fax::job::Job;
     /// 
     /// let filename = "assets/testPdf.pdf";
     /// let content = std::fs::read(filename).unwrap();

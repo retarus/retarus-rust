@@ -12,9 +12,9 @@ impl Job {
     /// Send a fax to the server.
     /// # Examples
     /// ```rust
-    /// use retarus::general::document::Document;
-    /// use retarus::general::job::Job;
-    /// use retarus::general::job::Number;
+    /// use retarus::fax::document::Document;
+    /// use retarus::fax::job::Job;
+    /// use retarus::fax::job::Number;
     /// // first create a document
     /// let docs = vec![Document::new(String::from("important_document.pdf"), "abc_content".as_bytes().to_vec(), None )];
     /// // Then get a vec of all your number
@@ -42,7 +42,7 @@ pub struct Number {
 /// # Examples
 ///
 /// ```rust
-/// use retarus::general::job::JobBuilder;
+/// use retarus::fax::job::JobBuilder;
 /// let numbers = vec!["+498900000000".to_string(), "+48090000000".to_string()];
 /// let job = JobBuilder::default()
 ///             .add_recipients(numbers)

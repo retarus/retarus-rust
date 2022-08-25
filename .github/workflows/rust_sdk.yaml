@@ -16,16 +16,20 @@ jobs:
           toolchain: stable
           components: clippy
           override: true
-        - uses: actions/cache@v3
-            with:
-              path: target/
-              key: gh_action_retaurs_sdk_rust
+      - uses: Swatinem/rust-cache@v1
+        with: 
+          sharedKey: gh_action_retaurs_sdk_rust
       - name: build retarus
         run: cargo build --package retarus --release
 
   testing:
     needs: build
     runs-on: ubuntu-22.04
+    env:
+      retarus_userid: ${{ secrets.RETARUS_USERID }}
+      retarus_fax_password: ${{ secrets.RETARUS_FAX_PASSWORD }}
+      retarus_sms_password: ${{ secrets.RETARUS_SMS_PASSWORD }}
+      retarus_customer_number: ${{ secrets.CUSTOMER_NUMBER }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -33,20 +37,25 @@ jobs:
           toolchain: stable
           components: clippy
           override: true
-      - uses: actions/cache@v3
+      - uses: Swatinem/rust-cache@v1
         with: 
             sharedKey: gh_action_retaurs_sdk_rust
+      
+      - name: create settings conf for credentials
+        run: | 
+          touch retarus-tests/assets/settings.toml && echo username=${retarus_userid}\n sms_password="${retarus_sms_password}" \n password="${retarus_fax_password}" >> retarus-tests/assets/settings.toml
+      
       - name: run retarus-tests
         run: cargo test --release
 
-      - name: Check formatting
-        uses: actions-rs/clippy@master
+      - uses: actions-rs/clippy-check@v1
         with:
-          args: -D warnings
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all-features
 
   deploy:
     needs: testing
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' && startsWith(github.ref, 'refs/tags')
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
@@ -54,7 +63,7 @@ jobs:
         with:
           toolchain: stable
           override: true
-      - uses: actions/cache@v3
+      - uses: Swatinem/rust-cache@v1
         with: 
             sharedKey: gh_action_retaurs_sdk_rust
       - uses: katyo/publish-crates@v1

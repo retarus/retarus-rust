@@ -30,7 +30,19 @@ let client = FaxClient::builder()
     .build();
 ```
 
+Now we are ready to go, lets create a instance of a job and send it.
+
+```rust
+let job = ....
+// some stuff to create a job
+let res:FaxJobResponse = client.send_job(None, job)
+println!("Job send, report: {}", res)
+```
+Now we just send a fax without using a faxing machine.
+
 ## Region
+The SDK also offers a simply way to select a region where your jobs should be processed. By default the SDK will use the Europe region.
+To Configure it simply use the set_region function in the builder for your client, just like above. But not each service is available to beeing processed in different [regions](retarus/src/general/uri.rs)
 
 ## Examples
 Each service provides a small variety of example to get a better understanding how to use their functionality. The examples can be found in the examples directory sorted after each services.
