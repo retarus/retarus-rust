@@ -8,7 +8,6 @@ pub struct Settings {
     pub username: String,
     pub sms_password: String,
     pub password: String,
-    pub endpoint: String
 }
 impl Settings {
     pub fn new() -> Result<Self, ConfigError> {
