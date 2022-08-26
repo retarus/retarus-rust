@@ -35,10 +35,33 @@ Now we are ready to go, lets create a instance of a job and send it.
 ```rust
 let job = ....
 // some stuff to create a job
-let res:FaxJobResponse = client.send_job(None, job)
+let res:FaxJobResponse = client.send_job(None, job).await;
 println!("Job send, report: {}", res)
 ```
 Now we just send a fax without using a faxing machine.
+
+## Sync / Async
+The whole sdk is written in asynchronous and should be used this way. If you need to use the sdk in a synchronous matter you can easily use the blocking method that is offered by the sdk. It can be used on each service like this:
+
+```rust
+use retarus::general::transport::blocking;
+use retarus::general::creds::Credentials;
+use retarus::sms::client::{SmsClient};
+use retarus::general::uri::Region;
+
+fn main() {
+let sdk = SmsClient::builder()
+        .set_region(Region::Europe)
+        .set_credentiale(Credentials::from_env().expect("You need to export your credentials"))
+        .build();
+let job = SmsJob::builder()
+        .add_message("Hallo Welt".to_string(), vec!["490000000000".to_string()])
+        .build();
+
+// This is the way you need to use the blocking method, to await the result in the current thread.
+let res = blocking(sdk.send_sms(job)).expect("Error while sending sms job");
+}
+```
 
 ## Region
 The SDK also offers a simply way to select a region where your jobs should be processed. By default the SDK will use the Europe region.

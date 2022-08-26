@@ -21,7 +21,11 @@ fn load_list(to_send: String) -> Vec<SmsJob> {
 
     for entry in rdr.records() {
         let data = entry.unwrap();
+        
+        // fill placeholder with surname
         let filled = to_send.replace("{}", &data[1]);
+        
+        // create a [SmsJob] via the builder function
         let job = SmsJob::builder()
             .add_message(filled, vec![data[2].to_string()])
             .build();
@@ -32,9 +36,14 @@ fn load_list(to_send: String) -> Vec<SmsJob> {
 }
 
 fn main() {
+    // Read the advertisement text from the assets folder
     let ad = read_ad_text();
+    
+    // load all the jobs into memory
     let jobs = load_list(ad);
 
+
+    // create a instance of the sdk
     let sdk = SmsClient::builder()
         .set_region(Region::Europe)
         .set_credentiale(Credentials::from_env().expect("You need to export your credentials"))
@@ -42,6 +51,7 @@ fn main() {
 
     let mut ids = vec![];
 
+    // Disptach all the sms jobs via the sdk instance
     for job in jobs {
         let res = blocking(sdk.send_sms(job)).expect("Error while sending sms job");
         ids.push(res.job_id);

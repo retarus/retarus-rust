@@ -14,7 +14,18 @@ use crate::{
 
 use super::models::{JobReport, JobResponse};
 
-/// The offical retarus sms sdk client, use the [builder] function to configure an instance.
+/// The offical retarus sms sdk client, use the [SmsClientBuilder] function to configure an instance.
+/// 
+/// ## Example
+/// ```rust
+/// use retarus::general::creds::Credentials;
+/// use retarus::sms::client::{SmsClient};
+/// 
+/// let sdk = SmsClient::builder()
+/// .set_credentiale(Credentials::from_env()
+/// .expect("You need to export your credentials"))
+/// .build();
+/// ```
 pub struct SmsClient {
     transporter: Transporter,
     region_uri: RegionUri,
