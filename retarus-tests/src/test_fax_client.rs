@@ -1,6 +1,3 @@
-use std::time::Duration;
-
-
 use retarus::fax::{job::Job, client::ClientSDK};
 
 use crate::provider::{provide_test_credentials, provide_test_file, provide_customer_number};

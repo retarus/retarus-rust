@@ -1,8 +1,7 @@
-use std::{error::Error, fmt};
+use std::{fmt};
 
 use hyper::StatusCode;
 
-type Result<T> = std::result::Result<T, Box<dyn Error>>;
 
 #[derive(Debug, Clone)]
 pub enum JobError {

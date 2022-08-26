@@ -1,3 +1,5 @@
+use std::{env, error::Error};
+
 
 /// the Credentails struct should contain the username and password to authorize the requests send to the server.
 #[derive(Debug, Clone, PartialEq)]
@@ -11,6 +13,15 @@ impl <'a> Credentials {
     }
     pub fn default() -> Credentials {
         return Credentials{ username: "exmapleUsername".to_string(), password: "yourPassword".to_string()}
+    }
+
+    /// Create a [Credentials] instance from env. Before you use this fucntion you need to export following keys:
+    /// - retarus_userid
+    /// - retarus_password
+    pub fn from_env() -> Result<Credentials, Box<dyn Error>> {
+        let user_id = env::var("retarus_userid")?;
+        let password = env::var("retarus_password")?;
+        Ok(Credentials{username: user_id, password})
     }
 
     pub fn encode(self) -> String {

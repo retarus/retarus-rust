@@ -8,7 +8,7 @@ pub struct Document{
     pub name: String,
     /// The content of the scanned document
     pub data: String,
-    //pub charset: String,
+    pub charset: String,
 }
 impl Document {
     /// Create a new instance of the document struct, default encoding is UTF-8
@@ -30,7 +30,7 @@ impl Document {
         if charset.is_some(){
             chars = charset.unwrap();
         }
-        return Document{ name, data: processed_data, };
+        return Document{ name, data: processed_data, charset: chars };
     }
 
 

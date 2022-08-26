@@ -4,15 +4,15 @@ use retarus::fax::job::Job;
 use retarus::fax::report::Report;
 use retarus::fax::client::*;
 use retarus::general::creds::Credentials;
+use retarus::general::transport::blocking;
 use retarus::general::uri::Region;
-use retarus::sms::client::blocking;
 use std;
 use std::fs::File;
 use std::io::Write;
 use std::path::PathBuf;
 use std::sync::mpsc::channel;
 use std::time::Duration;
-use std::{error::Error, thread};
+use std::{thread};
 
 
 fn is_string_numeric(str: &&str) -> bool {

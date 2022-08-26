@@ -280,6 +280,7 @@ impl<'n> ClientSDKBuilder {
 
     /// Build a new [ClientSDK] instance with the the arguments given to the builder.
     pub fn build(self) -> ClientSDK {
+        assert!(self.credentials.password != String::new(), "You need to specify a password using the set_credentials argument_function.");
         return ClientSDK {
             transporter: Transporter::new(self.credentials),
             region_uri: determine_region_uri(self.region),
@@ -292,5 +293,5 @@ impl<'n> ClientSDKBuilder {
 fn test_build_client() {
     let creds = Credentials::new("abc", "password123");
     let client = ClientSDKBuilder::default().set_credentiale(creds);
-    let a = client.build();
+    client.build();
 }

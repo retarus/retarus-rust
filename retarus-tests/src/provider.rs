@@ -1,7 +1,4 @@
-
-use config::{ConfigError, Config, File};
 use retarus::{general::{creds::Credentials}, fax::document::Document};
-use serde::Deserialize;
 use std::env;
 
 

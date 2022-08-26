@@ -1,27 +1,26 @@
-use std::{error::Error, process::Output};
+use std::{error::Error};
 
 use futures::Future;
 use hyper::StatusCode;
-use tokio::runtime::{self, Runtime};
 
 use crate::{
     general::{
         creds::Credentials,
         transport::{response_to_body, Transporter},
-        uri::{determine_region_uri, Region, RegionUri},
+        uri::{ Region, RegionUri},
     },
     sms::models::{SmsFilter, SmsJob},
 };
 
-use super::models::JobReport;
+use super::models::{JobReport, JobResponse};
 
-
+/// The offical retarus sms sdk client, use the [builder] function to configure an instance.
 pub struct SmsClient {
     transporter: Transporter,
     region_uri: RegionUri,
 }
 impl SmsClient {
-    //! Create a builder instance of SmsClientBuilder, which you can use to configurate from exmaple: Set a specfic region.
+    //! Create a builder instance of SmsClientBuilder, which you can use to configurate from example: Set a specfic region.
     pub fn builder() -> SmsClientBuilder {
         return SmsClientBuilder {
             region: Region::Europe,
@@ -39,21 +38,23 @@ impl SmsClient {
 }
 impl SmsClient {
     /// Takes a SmsJob instance and send a sms according to the specified details to the retarus servers to be processed.
-    pub async fn send_sms(&self, job: SmsJob) -> Result<String, Box<dyn Error>> {
-        let uri = format!("{}/jobs", &self.region_uri.ha_addr);
+    /// Returns: the job_id
+    pub async fn send_sms(&self, job: SmsJob) -> Result<JobResponse, Box<dyn Error>> {
+        let uri = format!("{}/rest/v1/jobs", &self.region_uri.ha_addr);
         let res = self.transporter.post::<SmsJob>(uri, job).await?;
-        if res.status() != StatusCode::OK {
+        if res.status() != StatusCode::OK && res.status() != StatusCode::CREATED {
             let a = response_to_body(res).await?;
             return Err(a.into())
         }
         let a = response_to_body(res).await?;
-        Ok(a)
+        let x: JobResponse = serde_json::from_str(a.as_str())?;
+        Ok(x)
     }
 
     /// Get a specific job from the server
     pub async fn get_sms_job(&self, job_id: String) -> Result<JobReport, Box<dyn Error>> {
         for server in &self.region_uri.servers {
-            let uri = format!("{}/jobs/{}", server, job_id);
+            let uri = format!("{}/rest/v1/jobs/{}", server, job_id);
             let res = self.transporter.get(uri).await?;
             if res.status() != StatusCode::OK {
                 continue;
@@ -68,8 +69,7 @@ impl SmsClient {
     /// Gets all sms report that match given criteria. Use the SmsFilter object to specify what to match.
     pub async fn filter_sms_jobs(&self, filter: SmsFilter) -> Result<Vec<JobReport>, Box<dyn Error>> {
         for server in &self.region_uri.servers {
-            let uri = format!("{}/{}", server, filter.create_filter_string());
-            println!("{}", uri);
+            let uri = format!("{}/rest/v1/jobs{}", server, filter.create_filter_string());
             let res = self.transporter.get(uri).await?;
             if res.status() != StatusCode::OK {
                 continue;
@@ -83,17 +83,6 @@ impl SmsClient {
 }
 
 
-
-/// Takes a future in and blocks the current thread until the future completes,
-/// used if your programm should run synchronously.
-
-pub fn blocking<F: Future>(mut future: F) -> F::Output 
-{
-    let runtime = tokio::runtime::Runtime::new().unwrap();
-    
-    let res = runtime.block_on(future);
-    return res
-}
 
 
 pub struct SmsClientBuilder {

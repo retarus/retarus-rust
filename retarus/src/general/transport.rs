@@ -1,6 +1,7 @@
 use std::{error::Error, time::Duration};
 
-use hyper::{client::HttpConnector, Body, Client, Method, Request, Response, StatusCode};
+use futures::Future;
+use hyper::{client::HttpConnector, Body, Client, Method, Request, Response};
 use hyper_tls::HttpsConnector;
 use serde::{Serialize};
 use tokio_compat_02::FutureExt;
@@ -30,7 +31,6 @@ impl Transporter {
     }
 
     pub async fn get(&self, uri: String) -> Result<Response<Body>, Box<dyn Error>> {
-        println!("uri: {:?}", uri);
         let req = Request::builder()
             .uri(uri)
             .method(Method::GET)
@@ -51,7 +51,6 @@ impl Transporter {
     ) -> Result<Response<Body>, Box<dyn Error>> {
         let payload = serde_json::to_string(&payload)?.as_bytes().to_owned();
 
-        println!("uri: {:?}", uri);
         let req = Request::builder()
             .uri(uri)
             .method(Method::POST)
@@ -65,7 +64,6 @@ impl Transporter {
         Ok(response)
     }
     pub async fn delete(&self, uri: String) -> Result<Response<Body>, Box<dyn Error>> {
-        println!("uri: {:?}", uri);
         let req = Request::builder()
             .uri(uri)
             .method(Method::DELETE)
@@ -86,3 +84,15 @@ pub async fn response_to_body(resp: Response<Body>) -> Result<String, Box<dyn Er
     Ok(string)
 }
 
+
+
+
+/// Takes a future in and blocks the current thread until the future completes,
+/// used if your programm should run synchronously.
+pub fn blocking<F: Future>(mut future: F) -> F::Output 
+{
+    let runtime = tokio::runtime::Runtime::new().unwrap();
+    
+    let res = runtime.block_on(future);
+    return res
+}
