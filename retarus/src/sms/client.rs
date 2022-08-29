@@ -16,7 +16,7 @@ use super::models::{JobReport, JobResponse};
 /// The offical retarus sms sdk client, use the [SmsClientBuilder] function to configure an instance.
 /// 
 /// ## Example
-/// ```rust
+/// ```ignore
 /// use retarus::common::creds::Credentials;
 /// use retarus::sms::client::{SmsClient};
 /// 
