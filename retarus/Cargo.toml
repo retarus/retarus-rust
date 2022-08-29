@@ -6,9 +6,6 @@ edition = "2021"
 repository = "https://github.com/retarus/retarus-rust"
 homepage = "https://github.com/retarus/retarus-rust"
 
-[lib]
-name = "retaurs"
-path = "src/lib.rs"
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
@@ -25,8 +22,3 @@ tokio-core = "0.1"
 tokio-compat-02 = "0.2"
 chrono = "0.4.22"
 
-[features]
-default = ["sms", "fax"]
-
-sms = []
-fax = []

@@ -1,6 +1,5 @@
 use std::{error::Error};
 
-use futures::Future;
 use hyper::StatusCode;
 
 use crate::{
@@ -18,7 +17,7 @@ use super::models::{JobReport, JobResponse};
 /// 
 /// ## Example
 /// ```rust
-/// use retarus::general::creds::Credentials;
+/// use retarus::common::creds::Credentials;
 /// use retarus::sms::client::{SmsClient};
 /// 
 /// let sdk = SmsClient::builder()

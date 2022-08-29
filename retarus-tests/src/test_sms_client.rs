@@ -1,4 +1,4 @@
-use retarus::{sms::{client::{SmsClient}, models::{SmsJob, SmsFilter}}, general::transport::blocking};
+use retarus::{sms::{client::{SmsClient}, models::{SmsJob, SmsFilter}}, common::transport::blocking};
 
 use crate::provider::provide_sms_credentials;
 

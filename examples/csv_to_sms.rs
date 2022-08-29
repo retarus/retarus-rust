@@ -1,7 +1,7 @@
 use csv::Reader;
-use retarus::general::creds::Credentials;
-use retarus::general::transport::blocking;
-use retarus::general::uri::Region;
+use retarus::common::creds::Credentials;
+use retarus::common::transport::blocking;
+use retarus::common::uri::Region;
 use retarus::sms::client::{SmsClient};
 use retarus::sms::models::SmsJob;
 

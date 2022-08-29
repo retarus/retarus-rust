@@ -19,7 +19,7 @@ impl ClientSDK {
     /// ## Example
     /// ```rust
     /// use retarus::fax::client::ClientSDK;
-    /// use retarus::general::creds::Credentials;
+    /// use retarus::common::creds::Credentials;
     ///
     /// let creds = Credentials::new("your_user_id", "your password");
     /// let client = ClientSDK::builder()

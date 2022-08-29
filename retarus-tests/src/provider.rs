@@ -1,4 +1,4 @@
-use retarus::{general::{creds::Credentials}, fax::document::Document};
+use retarus::{common::{creds::Credentials}, fax::document::Document};
 use std::env;
 
 

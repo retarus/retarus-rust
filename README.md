@@ -16,7 +16,7 @@ The Python-SDK implements different services that are offered by retarus. So in 
 
 ```rust
 use retarus::fax::client::{FaxClient};
-use retarus::general::region::{Region};
+use retarus::common::region::{Region};
 
 let client = FaxClient::builder()
     .set_credentiale(Credentails::new("your_user_id", "your_password"))
@@ -39,10 +39,10 @@ Now we just send a fax without using a faxing machine.
 The whole sdk is written in asynchronous and should be used this way. If you need to use the sdk in a synchronous matter you can easily use the blocking method that is offered by the sdk. It can be used on each service like this:
 
 ```rust
-use retarus::general::transport::blocking;
-use retarus::general::creds::Credentials;
+use retarus::common::transport::blocking;
+use retarus::common::creds::Credentials;
 use retarus::sms::client::{SmsClient};
-use retarus::general::uri::Region;
+use retarus::common::uri::Region;
 
 fn main() {
 let sdk = SmsClient::builder()

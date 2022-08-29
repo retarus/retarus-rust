@@ -1,10 +1,10 @@
 
 use std::{fs, error::Error};
-use retarus::general::creds::Credentials;
+use retarus::common::creds::Credentials;
 use retarus::fax::document::Document;
 use retarus::fax::job::JobBuilder;
 use retarus::fax::client::ClientSDK;
-use retarus::general::uri::Region;
+use retarus::common::uri::Region;
 
 
 fn read_file() -> Result<Option<Document>, Box<dyn Error>>{
