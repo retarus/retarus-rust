@@ -4,7 +4,7 @@ use futures::Future;
 use hyper::StatusCode;
 
 use crate::{
-    general::{
+    common::{
         creds::Credentials,
         transport::{response_to_body, Transporter},
         uri::{ Region, RegionUri},

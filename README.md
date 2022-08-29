@@ -9,12 +9,7 @@ Just add the crate to your project:
 retarus = "0.1"
 ```
 
-If you want ot reduce the footprint of the sdk and you just need a single service for your application, you can specify the service with a features flag in your "Cargo.toml", in our case we specifyed just the fax service:
 
-```toml
-[dependencies]
-retarus = {version = "0.1", features = ["fax"]}
-```
 
 ## Usage
 The Python-SDK implements different services that are offered by retarus. So in our example we will use the fax client. Before we can send a fax we need to create a new instance of the FaxClient. The SDK offers a common rust pattern, a builder for the sdk.

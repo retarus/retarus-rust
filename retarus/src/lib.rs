@@ -1,3 +1,3 @@
-pub mod fax;
-pub mod general;
+pub mod common;
 pub mod sms;
+pub mod fax;

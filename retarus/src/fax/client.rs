@@ -1,9 +1,9 @@
 use crate::fax::job::Job;
 use crate::fax::report::{Report, ReportsAction};
 use crate::fax::responses::{BulkDelete, BulkGet, DeletedReport, FaxJobResponse};
-use crate::general::creds::Credentials;
-use crate::general::transport::{response_to_body, Transporter};
-use crate::general::uri::{determine_region_uri, Region, RegionUri};
+use crate::common::creds::Credentials;
+use crate::common::transport::{response_to_body, Transporter};
+use crate::common::uri::{determine_region_uri, Region, RegionUri};
 use hyper::{StatusCode};
 use std::error::Error;
 
