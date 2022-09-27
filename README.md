@@ -1,5 +1,5 @@
-## Retarus-Rust SDK
-The offical rust SDK provided by retaurs to contact the messaging services.
+## Retarus Rust SDK
+The offical Rust SDK provided by Retarus to contact the messaging services.
 
 ## Installation
 Just add the crate to your project:
@@ -9,10 +9,8 @@ Just add the crate to your project:
 retarus = "0.1"
 ```
 
-
-
 ## Usage
-The Python-SDK implements different services that are offered by retarus. So in our example we will use the fax client. Before we can send a fax we need to create a new instance of the FaxClient. The SDK offers a common rust pattern, a builder for the sdk.
+The Rust SDK implements different services that are offered by retarus. So in our example we will use the fax client. Before we can send a fax we need to create a new instance of the FaxClient. The SDK offers a common Rust pattern, a builder for the SDK.
 
 ```rust
 use retarus::fax::client::{FaxClient};
@@ -25,7 +23,7 @@ let client = FaxClient::builder()
     .build();
 ```
 
-Now we are ready to go, lets create a instance of a job and send it.
+Now we are ready to go, let's create a instance of a job and send it.
 
 ```rust
 let job = ....
@@ -33,10 +31,10 @@ let job = ....
 let res:FaxJobResponse = client.send_job(None, job).await;
 println!("Job send, report: {}", res)
 ```
-Now we just send a fax without using a faxing machine.
+Now we just sent a fax without using a faxing machine.
 
 ## Sync / Async
-The whole sdk is written in asynchronous and should be used this way. If you need to use the sdk in a synchronous matter you can easily use the blocking method that is offered by the sdk. It can be used on each service like this:
+The whole SDK is written asynchronous and should be used this way. If you need to use the SDK in a synchronous matter, you can easily use the blocking method that is offered by the SDK. It can be used on each service like this:
 
 ```rust
 use retarus::common::transport::blocking;
@@ -60,7 +58,7 @@ let res = blocking(sdk.send_sms(job)).expect("Error while sending sms job");
 
 ## Region
 The SDK also offers a simply way to select a region where your jobs should be processed. By default the SDK will use the Europe region.
-To Configure it simply use the set_region function in the builder for your client, just like above. But not each service is available to beeing processed in different [regions](retarus/src/general/uri.rs)
+To Configure it, simply use the set_region function in the builder for your client, just like above. But not each service is available to beeing processed in different [regions](retarus/src/common/uri.rs)
 
 ## Examples
-Each service provides a small variety of example to get a better understanding how to use their functionality. The examples can be found in the examples directory sorted after each services.
+Each service provides a small variety of examples to get a better understanding of how to use their functionality. The examples can be found in the examples directory sorted by product category.
