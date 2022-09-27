@@ -1,5 +1,5 @@
 ## Retarus Rust SDK
-The offical Rust SDK provided by Retarus to contact the messaging services.
+The offical Rust SDK provided by Retarus to contact our messaging services.
 
 ## Installation
 Just add the crate to your project:
@@ -10,7 +10,7 @@ retarus = "0.1"
 ```
 
 ## Usage
-The Rust SDK implements different services that are offered by retarus. So in our example we will use the fax client. Before we can send a fax we need to create a new instance of the FaxClient. The SDK offers a common Rust pattern, a builder for the SDK.
+The Rust SDK implements different services that are offered by Retarus. So in our example we will use the fax client. Before we can send a fax we need to create a new instance of the FaxClient. The SDK offers a common Rust pattern, a builder for the SDK.
 
 ```rust
 use retarus::fax::client::{FaxClient};
