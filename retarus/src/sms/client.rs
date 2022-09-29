@@ -13,7 +13,7 @@ use crate::{
 
 use super::models::{JobReport, JobResponse};
 
-/// The offical retarus sms sdk client, use the [SmsClientBuilder] function to configure an instance.
+/// The offical Retarus SMS SDK client, use the [SmsClientBuilder] function to configure an instance.
 /// 
 /// ## Example
 /// ```ignore
@@ -47,7 +47,7 @@ impl SmsClient {
     }
 }
 impl SmsClient {
-    /// Takes a SmsJob instance and send a sms according to the specified details to the retarus servers to be processed.
+    /// Takes a SmsJob instance and send a sms according to the specified details to the Retarus servers to be processed.
     /// Returns: the job_id
     pub async fn send_sms(&self, job: SmsJob) -> Result<JobResponse, Box<dyn Error>> {
         let uri = format!("{}/rest/v1/jobs", &self.region_uri.ha_addr);

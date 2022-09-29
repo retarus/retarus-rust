@@ -31,7 +31,7 @@ impl ClientSDK {
         ClientSDKBuilder::default()
     }
 
-    /// Send a fax to the retarus server.
+    /// Send a fax to the Retarus server.
     pub async fn send_job(
         &self,
         customer_number: Option<String>,
@@ -150,7 +150,7 @@ impl ClientSDK {
         
     }
 
-    /// Takes a vector of job_ids and deletes the corresponding report on the retaurs servers.
+    /// Takes a vector of job_ids and deletes the corresponding report on the Retarus servers.
     pub async fn perform_bulk_delete(
         &self,
         job_ids: Vec<String>,

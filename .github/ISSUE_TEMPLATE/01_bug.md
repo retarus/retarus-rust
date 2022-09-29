@@ -1,9 +1,9 @@
-<!-- Thank you fHey Matthias, or using the Retarus-Python SDK
+<!-- Thank you for using the Retarus Rust SDK
 
 --->
 
 ## Error description
-<!-- Tell us what heppend -->
+<!-- Tell us what happened -->
 
 ## Steps to Reproduce
 
@@ -13,7 +13,7 @@
 2. ... <!-- describe steps to demonstrate bug -->
 3. ... <!-- for example "Input a value, see how it crashes" -->
 
-**Expected results:** <!-- what did you want to see? -->
+**Expected results:** <!-- what did you expect to see? -->
 
 **Actual results:** <!-- what did you see? -->
 

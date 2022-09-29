@@ -1,3 +1,3 @@
-## Retarus-Rust SDK
-A rust implemented libary to communicate with retaurs messaging services.
+## Retarus Rust SDK
+A Rust implemented library to communicate with Retarus messaging services.
 

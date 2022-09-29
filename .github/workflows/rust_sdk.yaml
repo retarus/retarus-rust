@@ -1,4 +1,4 @@
-name: fax4app_sdk_rust_pipeline
+name: retarus_sdk_rust_pipeline
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
           override: true
       - uses: Swatinem/rust-cache@v1
         with: 
-          sharedKey: gh_action_retaurs_sdk_rust
+          sharedKey: gh_action_retarus_sdk_rust
       - name: build retarus
         run: cargo build --package retarus --release
 
@@ -39,7 +39,7 @@ jobs:
           override: true
       - uses: Swatinem/rust-cache@v1
         with: 
-            sharedKey: gh_action_retaurs_sdk_rust
+            sharedKey: gh_action_retarus_sdk_rust
       
       - name: run retarus-tests
         run: cargo test --release
@@ -61,7 +61,7 @@ jobs:
           override: true
       - uses: Swatinem/rust-cache@v1
         with: 
-            sharedKey: gh_action_retaurs_sdk_rust
+            sharedKey: gh_action_retarus_sdk_rust
       - uses: katyo/publish-crates@v1
         with:
             registry-token: ${{ secrets.CARGO_SECRET }}

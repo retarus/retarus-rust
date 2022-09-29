@@ -48,7 +48,7 @@ async fn main() {
 
 
     let mut job_id = String::new();
-    // if read was sucessfull, we send the fax to the retarus server
+    // if read was sucessfull, we send the fax to the Retarus server
     if data.is_some() {
         let job = JobBuilder::default()
         .add_document(data.unwrap())
