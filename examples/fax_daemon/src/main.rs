@@ -47,7 +47,7 @@ fn create_job(path: PathBuf) -> Result<Option<Job>, Box<dyn std::error::Error>> 
     return Ok(None);
 }
 
-fn wirte_report(report: Report) {
+fn write_report(report: Report) {
     // write the report to the in directory
     let mut file = File::create(format!("in/{}.json", report.job_id)).unwrap();
     let a = serde_json::to_string(&report).unwrap();
@@ -93,7 +93,7 @@ fn main() {
 
                 // send the fax
                 let res = blocking(sdk.send_job(None, job)).unwrap();
-                println!("Created and send Fax");
+                println!("Created and sent Fax");
                 let job_id = res.job_id;
                 let mut is_processed = false;
                 // wait until the job has been processed to create a local copy of the fax report
@@ -108,7 +108,7 @@ fn main() {
                         .status
                         != "PENDING"
                     {
-                        wirte_report(report_res);
+                        write_report(report_res);
                         is_processed = true;
                     }
                     thread::sleep(Duration::from_secs(40));
