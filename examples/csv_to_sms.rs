@@ -57,6 +57,6 @@ fn main() {
         ids.push(res.job_id);
     }
 
-    println!("Send all sms")
+    println!("Sent all sms")
 
 }

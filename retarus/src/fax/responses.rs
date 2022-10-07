@@ -3,7 +3,7 @@ use serde::{Serialize, Deserialize};
 use super::report::Report;
 
 
-/// Represents the response that will be send by the server if it reutrns a 200 or 201. 
+/// Represents the response that will be sent by the server if it returns a 200 or 201. 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct FaxJobResponse{

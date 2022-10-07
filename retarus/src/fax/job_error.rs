@@ -19,8 +19,8 @@ impl fmt::Display for JobError {
             JobError::NotFound => write!(f, "No job report available for the given jobId; no recipient report available for the given jobId"),
             JobError::Conflict => write!(f, "Duplicate job"),
             JobError::InternalServerError => write!(f, "Cannot accept job, cannot query jobReport, cannot list jobs, cannot query recipient report, cannot apply transliteration in the send job"),
-            JobError::UnkownError => write!(f, "Server signals that there was an unklnown problem, most likely with the backend adaptor"),
-            JobError::NotImplemented => write!(f, "This Method is not available for this specified endpoint")
+            JobError::UnkownError => write!(f, "Server signals that there was an unknown problem, most likely with the backend adaptor"),
+            JobError::NotImplemented => write!(f, "This method is not available for this specified endpoint")
         }
     }
 }

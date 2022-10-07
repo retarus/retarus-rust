@@ -8,7 +8,7 @@ use tokio_compat_02::FutureExt;
 
 use super::creds::Credentials;
 
-/// Specifie the region and your login credentials.
+/// Specifies the region and your login credentials.
 #[derive(Debug, Clone)]
 pub struct Transporter {
     /// Which server should be used to send the fax to.
@@ -17,7 +17,7 @@ pub struct Transporter {
 }
 
 impl Transporter {
-    /// Creates a new Transporter that contains the endpoint_uri, credentails and a http client, that pools the connections and is able to communitcate with https endpoints.
+    /// Creates a new Transporter that contains the endpoint_uri, credentails and a http client that pools the connections and is able to communitcate with https endpoints.
     pub fn new(credentials: Credentials) -> Transporter {
         let https = HttpsConnector::new();
         let client = Client::builder()

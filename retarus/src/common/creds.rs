@@ -1,7 +1,7 @@
 use std::{env, error::Error};
 
 
-/// the Credentails struct should contain the username and password to authorize the requests send to the server.
+/// the Credentails struct should contain the username and password to authorize the requests sent to the server.
 #[derive(Debug, Clone, PartialEq)]
 pub struct Credentials {
     pub username: String,
@@ -15,7 +15,7 @@ impl <'a> Credentials {
         return Credentials{ username: "exmapleUsername".to_string(), password: "yourPassword".to_string()}
     }
 
-    /// Create a [Credentials] instance from env. Before you use this fucntion you need to export following keys:
+    /// Create a [Credentials] instance from env. Before you use this function, you need to export following keys:
     /// - retarus_userid
     /// - retarus_password
     pub fn from_env() -> Result<Credentials, Box<dyn Error>> {

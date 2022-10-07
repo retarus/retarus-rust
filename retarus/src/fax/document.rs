@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use base64;
 
-/// A Document represents an attachment in a fax(pdf, txt usw.)
+/// A document represents an attachment in a fax (pdf, txt usw.)
 #[derive(Debug, Deserialize, Clone, Serialize, PartialEq)]
 pub struct Document{
     /// The name of the document

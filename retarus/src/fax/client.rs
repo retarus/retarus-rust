@@ -119,7 +119,7 @@ impl ClientSDK {
     return Err("No Fax report was found, please try again".into())
     }
 
-    /// Fetches the last fax_reports limit = 1000.
+    /// Fetches the last fax_reports, limit = 1000.
     pub async fn get_fax_reports(
         &self,
         customer_number: Option<String>,
@@ -183,7 +183,7 @@ impl ClientSDK {
     Err("No report found!".into())
 }
 
-    /// Takes a vector of job_ids and returns the report for that numbers, if no report is found it will throw an error.
+    /// Takes a vector of job_ids and returns the report for these numbers. If no report is found, it will throw an error.
     pub async fn perform_bulk_get(
         &self,
         job_ids: Vec<String>,
@@ -216,7 +216,7 @@ impl ClientSDK {
     Err("No report found!".into())
 }
 
-    /// Delete all reports(up to 1000 with one call). If you want to delete specific reports with the job_id, then use the [perform_bulk_delete] function
+    /// Delete all reports (up to 1000 with one call). If you want to delete specific reports with the job_id, then use the [perform_bulk_delete] function
     pub async fn prune_reports(
         &self,
         customer_number: Option<String>,

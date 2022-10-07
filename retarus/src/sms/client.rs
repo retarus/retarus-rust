@@ -76,7 +76,7 @@ impl SmsClient {
         Err("No report found!".into())
     }
 
-    /// Gets all sms report that match given criteria. Use the SmsFilter object to specify what to match.
+    /// Gets all sms reports that match given criteria. Use the SmsFilter object to specify what to match.
     pub async fn filter_sms_jobs(&self, filter: SmsFilter) -> Result<Vec<JobReport>, Box<dyn Error>> {
         for server in &self.region_uri.servers {
             let uri = format!("{}/rest/v1/jobs{}", server, filter.create_filter_string());
@@ -113,9 +113,9 @@ impl SmsClientBuilder {
     pub fn build(self) -> SmsClient {
         assert!(
             self.credentails.password != "",
-            "Credentails must be set to use the sms client"
+            "Credentials must be set to use the sms client"
         );
-        assert!(self.region == Region::Europe, "The sms service is currently only processed in the european region, select Region::Europe as your region.");
+        assert!(self.region == Region::Europe, "The sms service is currently only processed in the European region, select Region::Europe as your region.");
 
         return SmsClient {
             transporter: Transporter::new(self.credentails),

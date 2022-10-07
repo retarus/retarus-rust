@@ -8,7 +8,7 @@ use retarus::common::uri::Region;
 
 
 fn read_file() -> Result<Option<Document>, Box<dyn Error>>{
-    // Here we read a file and for simplicity we also create a document object that will be returned.
+    // Here we read a file and for simplicity, we also create a document object that will be returned.
     let dir = fs::read_dir("./assets")?;
     for entry in dir{
         let en = entry?;
@@ -17,7 +17,7 @@ fn read_file() -> Result<Option<Document>, Box<dyn Error>>{
         let result = fs::read(en.path())?;
         let filename = en.file_name().into_string().unwrap();
 
-        // create a new document object with the data from the 2 variables above
+        // create a new document object with the data from the two variables above
         let doc = Document::new(filename, result, None);
 
         return Ok(Some(doc))
@@ -28,7 +28,7 @@ fn read_file() -> Result<Option<Document>, Box<dyn Error>>{
 
 #[tokio::main]
 async fn main() {
-    // First we need to create a credentails object to authenticate ourselfs.
+    // First we need to create a credentials object to authenticate ourselves.
 
     let user_id = std::env::var("retarus_userid").unwrap();
     let password = std::env::var("retarus_fax_password").unwrap();
@@ -36,14 +36,14 @@ async fn main() {
     let customer_number = std::env::var("retarus_customer_number").unwrap();
 
 
-    // Now lets create a client
+    // Now let's create a client
     let client = ClientSDK::builder()
     .set_customer_number(customer_number)
     .set_region(Region::Europe)
     .set_credentiale(Credentials::new(user_id.as_str(), password.as_str()))
     .build();
     
-    // Now lets read a file of a directory.
+    // Now let's read a file of a directory.
     let data = read_file().unwrap();
 
 

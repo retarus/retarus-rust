@@ -1,9 +1,9 @@
 use super::{document::Document};
 
-/// This represents a fax job that will be send to the retarus server to send a fax.
+/// This represents a fax job that will be transmitted  to the Retarus server to send a fax.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Job {
-    /// A list of all numbers that should recieve a fax.
+    /// A list of all numbers that should receive a fax.
     recipients: Vec<Number>,
     /// List of documents that should be send as fax to the specified numbers.
     documents: Vec<Document>,
@@ -86,7 +86,7 @@ impl JobBuilder {
         self.documents = docs;
         self
     }
-    /// Build a Job from the given arguments.
+    /// Build a job from the given arguments.
     pub fn build(self) -> Job {
         Job {
             recipients: self.recipients,
