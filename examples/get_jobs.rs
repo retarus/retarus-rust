@@ -29,9 +29,9 @@ fn read_file(path: &str) -> Result<Option<Document>, Box<dyn Error>>{
 #[tokio::main]
 async fn main() {
     // First we need to create a credentials object to authenticate ourselves.
-    let user_id = "66666-Fabian.Engler@retarus.de";
-    let password = "Passwort1234!";
-    let customer_number = "666666";
+    let user_id = "your username";
+    let password = "your password";
+    let customer_number = "your customer_id";
     
 
     // Now let's create a client
@@ -42,7 +42,7 @@ async fn main() {
         .build();
     
     // Now let's read a file of a directory.
-    let data = read_file("./retarus-rust/examples/assets/").unwrap();
+    let data = read_file("your file").unwrap();
 
 
     let mut job_id = String::new();
@@ -50,7 +50,7 @@ async fn main() {
     if data.is_some() {
         let job = JobBuilder::default()
         .add_document(data.unwrap())
-        .add_recipient("+49000000000".to_string())
+        .add_recipient("your receipient".to_string())
         .build();
         
         // checks if the fax was sucessfull submitted
