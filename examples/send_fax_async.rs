@@ -40,7 +40,7 @@ async fn main() {
     let client = ClientSDK::builder()
     .set_customer_number(customer_number)
     .set_region(Region::Europe)
-    .set_credentiale(Credentials::new(user_id.as_str(), password.as_str()))
+    .set_credentials(Credentials::new(user_id.as_str(), password.as_str()))
     .build();
     
     // Now let's read a file of a directory.
@@ -48,14 +48,14 @@ async fn main() {
 
 
     let mut job_id = String::new();
-    // if read was sucessfull, we send the fax to the Retarus server
+    // if read was successful, we send the fax to the Retarus server
     if data.is_some() {
         let job = JobBuilder::default()
         .add_document(data.unwrap())
         .add_recipient("+49000000000".to_string())
         .build();
         
-        // checks if the fax was sucessfull submitted
+        // checks if the fax was successful submitted
         let res = match client.send_job(None, job).await{
             Ok(res) => res,
             Err(err) => panic!("{}", err)

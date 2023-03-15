@@ -15,7 +15,7 @@ pub struct ClientSDK {
 // todo document the functions, what they do, how to use them (Example)
 
 impl ClientSDK {
-    /// Create a ClientSDK instance with builder, just set the nessecary parameters and you are ready to go:
+    /// Create a ClientSDK instance with builder, just set the necessary parameters and you are ready to go:
     /// ## Example
     /// ```rust
     /// use retarus::fax::client::ClientSDK;
@@ -24,7 +24,7 @@ impl ClientSDK {
     /// let creds = Credentials::new("your_user_id", "your password");
     /// let client = ClientSDK::builder()
     /// .set_customer_number("customer_number".to_string())
-    /// .set_credentiale(creds)
+    /// .set_credentials(creds)
     /// .build();
     /// ```
     pub fn builder() -> ClientSDKBuilder {
@@ -84,7 +84,7 @@ impl ClientSDK {
                 continue;
             }
     }
-    return Err("No Fax report was found, please try again".into())
+    Err("No Fax report was found, please try again".into())
 }
 
     /// Delete a single fax report with job_id.
@@ -116,7 +116,7 @@ impl ClientSDK {
                 continue;
             }
     }
-    return Err("No Fax report was found, please try again".into())
+    Err("No Fax report was found, please try again".into())
     }
 
     /// Fetches the last fax_reports, limit = 1000.
@@ -254,7 +254,7 @@ pub struct ClientSDKBuilder {
     credentials: Credentials,
     customer_number: String,
 }
-impl<'n> ClientSDKBuilder {
+impl<> ClientSDKBuilder {
     fn default() -> ClientSDKBuilder {
         ClientSDKBuilder {
             region: Region::Europe,
@@ -263,7 +263,7 @@ impl<'n> ClientSDKBuilder {
         }
     }
 
-    pub fn set_credentiale(mut self, credentials: Credentials) -> ClientSDKBuilder {
+    pub fn set_credentials(mut self, credentials: Credentials) -> ClientSDKBuilder {
         self.credentials = credentials;
         self
     }
@@ -281,17 +281,17 @@ impl<'n> ClientSDKBuilder {
     /// Build a new [ClientSDK] instance with the the arguments given to the builder.
     pub fn build(self) -> ClientSDK {
         assert!(self.credentials.password != String::new(), "You need to specify a password using the set_credentials argument_function.");
-        return ClientSDK {
+        ClientSDK {
             transporter: Transporter::new(self.credentials),
             region_uri: determine_region_uri(self.region),
-            customer_number: self.customer_number.to_owned(),
-        };
+            customer_number: self.customer_number,
+        }
     }
 }
 
 #[test]
 fn test_build_client() {
     let creds = Credentials::new("abc", "password123");
-    let client = ClientSDKBuilder::default().set_credentiale(creds);
+    let client = ClientSDKBuilder::default().set_credentials(creds);
     client.build();
 }

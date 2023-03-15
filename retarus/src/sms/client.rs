@@ -8,12 +8,12 @@ use crate::{
         transport::{response_to_body, Transporter},
         uri::{ Region, RegionUri},
     },
-    sms::models::{SmsFilter, SmsJob},
+    sms::models::{SmsJob},
 };
 
 use super::models::{JobReport, JobResponse};
 
-/// The offical Retarus SMS SDK client, use the [SmsClientBuilder] function to configure an instance.
+/// The official Retarus SMS SDK client, use the [SmsClientBuilder] function to configure an instance.
 /// 
 /// ## Example
 /// ```ignore
@@ -21,7 +21,7 @@ use super::models::{JobReport, JobResponse};
 /// use retarus::sms::client::{SmsClient};
 /// 
 /// let sdk = SmsClient::builder()
-/// .set_credentiale(Credentials::from_env()
+/// .set_credentials(Credentials::from_env()
 /// .expect("You need to export your credentials"))
 /// .build();
 /// ```
@@ -30,9 +30,9 @@ pub struct SmsClient {
     region_uri: RegionUri,
 }
 impl SmsClient {
-    //! Create a builder instance of SmsClientBuilder, which you can use to configurate from example: Set a specfic region.
+    //! Create a builder instance of SmsClientBuilder, which you can use to configure from example: Set a specific region.
     pub fn builder() -> SmsClientBuilder {
-        return SmsClientBuilder {
+        SmsClientBuilder {
             region: Region::Europe,
             region_uris: vec![RegionUri::new(
                 Region::Europe,
@@ -43,7 +43,7 @@ impl SmsClient {
                 ],
             )],
             credentails: Credentials::new("", ""),
-        };
+        }
     }
 }
 impl SmsClient {
@@ -76,20 +76,20 @@ impl SmsClient {
         Err("No report found!".into())
     }
 
-    /// Gets all sms reports that match given criteria. Use the SmsFilter object to specify what to match.
-    pub async fn filter_sms_jobs(&self, filter: SmsFilter) -> Result<Vec<JobReport>, Box<dyn Error>> {
-        for server in &self.region_uri.servers {
-            let uri = format!("{}/rest/v1/jobs{}", server, filter.create_filter_string());
-            let res = self.transporter.get(uri).await?;
-            if res.status() != StatusCode::OK {
-                continue;
-            }
-            let a = response_to_body(res).await?;
-            let x: Vec<JobReport> = serde_json::from_str(a.as_str())?;
-            return Ok(x);
-        }
-        Err("No report found!".into())
-    }
+    // /// Gets all sms reports that match given criteria. Use the SmsFilter object to specify what to match.
+    // pub async fn filter_sms_jobs(&self, filter: SmsFilter) -> Result<Vec<JobReport>, Box<dyn Error>> {
+    //     for server in &self.region_uri.servers {
+    //         let uri = format!("{}/rest/v1/jobs{}", server, filter.create_filter_string());
+    //         let res = self.transporter.get(uri).await?;
+    //         if res.status() != StatusCode::OK {
+    //             continue;
+    //         }
+    //         let a = response_to_body(res).await?;
+    //         let x: Vec<JobReport> = serde_json::from_str(a.as_str())?;
+    //         return Ok(x);
+    //     }
+    //     Err("No report found!".into())
+    // }
 }
 
 
@@ -101,7 +101,7 @@ pub struct SmsClientBuilder {
     credentails: Credentials,
 }
 impl SmsClientBuilder {
-    pub fn set_credentiale(mut self, credentails: Credentials) -> SmsClientBuilder {
+    pub fn set_credentials(mut self, credentails: Credentials) -> SmsClientBuilder {
         self.credentails = credentails;
         self
     }

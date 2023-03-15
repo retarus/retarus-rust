@@ -23,10 +23,10 @@ impl Job {
     /// let response = Job::builder().add_recipients(numbers).add_documents(docs);
     /// ```
     fn new(numbers: Vec<Number>, documents: Vec<Document>) -> Job {
-        return Job {
+        Job {
             recipients: numbers,
-            documents: documents,
-        };
+            documents,
+        }
     }
     pub fn builder() -> JobBuilder {
         JobBuilder::default()

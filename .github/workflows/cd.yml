@@ -1,0 +1,27 @@
+name: release
+
+
+on:
+  push:
+    tags:
+      - "v*"
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2.26.0
+        with:
+          github_token: ${{secrets.gh_token}}
+          workflow: ci.yaml
+          name: ${{ github.sha }}-ci_rust
+      
+      - name: upload crate to crates.io
+        uses: katyo/publish-crates@v1
+        with:
+          registry-token: ${{ secrets.CARGO_SECRET }}

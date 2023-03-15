@@ -5,14 +5,30 @@ publish = false
 edition = "2018"
 
 [dependencies]
-retarus = { version = "0.1.0", path= "../retarus" }
+retarus = { version = "0.1.0", path= "../retarus", features = ["default"]}
 tokio = { version = "1.19.2", features = ["full"]}
 csv = "1.1.6"
 
 [[example]]
-name = "fax_application"
-path = "fax_application.rs"
+name = "get_jobs"
+path = "get_jobs.rs"
 
 [[example]]
 name = "csv_to_sms"
 path = "csv_to_sms.rs"
+
+[[example]]
+name = "send_fax_async"
+path = "send_fax_async.rs"
+
+[[example]]
+name = "send_sms_async"
+path = "send_sms_async.rs"
+
+[[example]]
+name = "send_sms_sync"
+path = "send_sms_sync.rs"
+
+[[example]]
+name = "upload_webexpress_async"
+path = "upload_webexpress_async.rs"

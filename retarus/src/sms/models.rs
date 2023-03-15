@@ -1,21 +1,35 @@
 use chrono::{DateTime, Utc};
 
 
+///This object can be used to set more details about how the SmsJob should be processed.
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Options {
+    /// src: Set your source number
     src: Option<String>,
+    /// encoding: which encoding should be used, default: STANDARD options: [ STANDARD, UTF-16 ]
     encoding: Option<String>,
+    /// billcode: Max. 70 characters.
     billcode: Option<String>,
+    /// status_requested: Delivery notification requested.
     status_requested: Option<bool>,
+    /// flash: specify if the sms should be express or not
     flash: Option<bool>,
+    /// customer_ref: Recommended max. 64 characters.
     customer_ref: Option<String>,
+    /// validity_min: Validity of the SMS in minutes. When 0 the provider’s default value is used. Otherwise, values must be between 5 and 2880 minutes.
     validity_min: Option<i32>,
+    /// max_parts: Maximum allowed parts in a multi-part message. Values must be between 1 and 20. Longer messages are truncated.
     max_parts: Option<i32>,
+    /// invalid_characters: Define how to handle invalid characters in SMS. options: [ REFUSE, REPLACE, TO_UTF16, TRANSLITERATE ]
     invalid_characters: Option<String>,
+    /// qos: Quality of Service. options: [ EXPRESS, NORMAL ]
     qos: Option<String>,
+    /// job_period: Timestamp to schedule when to start processing the SMS Job (iso-8601).
     job_period: Option<String>,
+    /// duplicate_detection: bool
     duplicate_detection: Option<bool>,
+    /// blackout_periods: Time periods in which no SMS is delivered (iso-8601). SMS will be scheduled to be sent at the end of the blackout period.
     blackout_periods: Option<Vec<String>>,
 }
 
@@ -48,7 +62,7 @@ pub struct SmsJob {
 impl SmsJob {
     // Get a builder instance to configure a sms job.
     pub fn builder() -> SmsJobBuilder {
-        return SmsJobBuilder {
+        SmsJobBuilder {
             options: None,
             messages: Vec::new(),
         }
@@ -62,7 +76,7 @@ pub struct SmsJobBuilder {
 impl SmsJobBuilder {
     pub fn add_message(mut self, message: String, dst: Vec<String>) -> SmsJobBuilder {
         if self.messages.len() >= 3 {
-            assert!(false, "Too many messages, a job can only handle 3 messages.")
+            panic!("Too many messages, a job can only handle 3 messages.")
         }
         let mut respt = vec![];
         for number in dst.iter() {
@@ -74,13 +88,13 @@ impl SmsJobBuilder {
     }
     pub fn add_messages(mut self, mut messages: Vec<Message>) -> SmsJobBuilder{
         if self.messages.len() >= 3 || messages.len() >= 3 || messages.len() + self.messages.len() >= 3 {
-            assert!(false, "Too many messages, a job can only handle 3 messages.")
+            panic!("Too many messages, a job can only handle 3 messages.")
         }
         self.messages.append(&mut messages);
         self
     }
-
     pub fn configure_sms(mut self, options: Options) -> SmsJobBuilder {
+        //! Override your default configuration set in the myEAS, how the sms will be processed.
         self.options = Some(options);
         self
     }
@@ -135,7 +149,7 @@ impl SmsFilterBuilder{
         self
     }
     pub fn build(self) -> SmsFilter {
-        return self.filter
+        self.filter
     }
 
 
@@ -157,24 +171,24 @@ impl SmsFilter {
     pub fn create_filter_string(&self) -> String{
         let mut query = String::from("?");
 
-        if &true == &self.job_ids_only.is_some() {
+        if self.job_ids_only.is_some() {
             query = format!("{}jobIdsOnly={}&", query,  &self.job_ids_only.unwrap())
         }
-        if &true == &self.from_ts.is_some() {
+        if self.from_ts.is_some() {
             query = format!("{}fromTs={}&", query,  &self.from_ts.unwrap())
         }
-        if &true == &self.to_ts.is_some() {
+        if self.to_ts.is_some() {
             query = format!("{}toTs={}&", query,  &self.to_ts.unwrap())
         }
-        if &true == &self.open.is_some() {
+        if self.open.is_some() {
             query = format!("{}open={}&", query,  &self.open.unwrap())
         }
-        if &true == &self.offset.is_some() {
+        if self.offset.is_some() {
             query = format!("{}offset={}&", query,  &self.offset.unwrap())
         }
-        if &true == &self.limit.is_some() {
+        if self.limit.is_some() {
             query = format!("{}limit={}&", query,  &self.limit.unwrap())
         }
-        return query;
+        query
     }
 }

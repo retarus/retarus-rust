@@ -46,7 +46,7 @@ fn main() {
     // create a instance of the sdk
     let sdk = SmsClient::builder()
         .set_region(Region::Europe)
-        .set_credentiale(Credentials::from_env().expect("You need to export your credentials"))
+        .set_credentials(Credentials::from_env().expect("You need to export your credentials"))
         .build();
 
     let mut ids = vec![];

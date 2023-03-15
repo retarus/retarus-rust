@@ -1,5 +1,15 @@
-## Retarus Rust SDK
-The offical Rust SDK provided by Retarus to contact our messaging services.
+<p align="center">
+  <a href="https://www.retarus.com/">
+    <img src="https://assets.retarus.com/de/wp-content/uploads/sites/2/2018/07/retarus-logo.png" alt="retarus logo" height="45" />
+  </a>
+</p>
+<h2 align="center">
+  Retarus Rust SDK
+</h2>
+
+<p align="center">
+	The official Rust SDK provided by Retarus to contact our messaging services with the lightning speed of the rust programming language.
+</p>
 
 ## Installation
 Just add the crate to your project:
@@ -8,6 +18,19 @@ Just add the crate to your project:
 [dependencies]
 retarus = "0.1"
 ```
+If you just need to use a specific service of the SDK, you can specify a [feature flag]() for the services you need. This will reduce the size of the implemented crate, just modify the crate implementation in your "Cargo.toml":
+```toml
+[dependencies]
+retarus = { version = "current_version", features = ["fax"]}
+```
+
+|Feature | Description |
+--- | --- | 
+|default | By default the crate gets the full functionallity, if you want to decrease the foodprint of the retarus crate, specify only the needed features.|
+|fax |  Add just the fax functionallity|
+|sms | Add Sms feature capability|
+|webexpress | Only gets the Webexpress Client and the according functionallity|
+
 
 ## Usage
 The Rust SDK implements different services that are offered by Retarus. So in our example we will use the fax client. Before we can send a fax we need to create a new instance of the FaxClient. The SDK offers a common Rust pattern, a builder for the SDK.
@@ -28,7 +51,7 @@ Now we are ready to go, let's create a instance of a job and send it.
 ```rust
 let job = ....
 // some stuff to create a job
-let res:FaxJobResponse = client.send_job(None, job).await;
+let res: FaxJobResponse = client.send_job(None, job).await;
 println!("Job send, report: {}", res)
 ```
 Now we just sent a fax without using a faxing machine.
@@ -57,8 +80,8 @@ let res = blocking(sdk.send_sms(job)).expect("Error while sending sms job");
 ```
 
 ## Region
-The SDK also offers a simply way to select a region where your jobs should be processed. By default the SDK will use the Europe region.
-To Configure it, simply use the set_region function in the builder for your client, just like above. But not each service is available to beeing processed in different [regions](retarus/src/common/uri.rs)
+The SDK also offers a simply way to select a region where your jobs should be processed. By default, the SDK will use the Europe region.
+To Configure it, simply use the set_region function in the builder for your client, just like above. But not each service is available to being processed in different [regions](retarus/src/common/uri.rs)
 
 ## Examples
 Each service provides a small variety of examples to get a better understanding of how to use their functionality. The examples can be found in the examples directory sorted by product category.

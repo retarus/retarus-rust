@@ -1,17 +1,27 @@
-use retarus::fax::{job::Job, client::ClientSDK};
+#[cfg(test)]
+use test_utils::create_client;
 
-use crate::provider::{provide_test_credentials, provide_test_file, provide_customer_number};
+#[cfg(test)]
+mod test_utils {
+    use retarus::fax::client::ClientSDK;
 
+    pub fn create_client() -> ClientSDK {
+        use crate::provider::{provide_customer_number, provide_test_credentials};
 
-fn create_client() -> ClientSDK {
-    let client = ClientSDK::builder()
-        .set_customer_number(provide_customer_number())
-        .set_credentiale(provide_test_credentials())
-        .build();
-    return client;
+        let client = ClientSDK::builder()
+            .set_customer_number(provide_customer_number())
+            .set_credentials(provide_test_credentials())
+            .build();
+        return client;
+    }
 }
 
+#[cfg(test)]
 async fn send_fax() -> String {
+    use retarus::fax::job::Job;
+
+    use crate::provider::provide_test_file;
+
     let client = create_client();
     let job = Job::builder()
         .add_document(provide_test_file())
@@ -22,7 +32,7 @@ async fn send_fax() -> String {
         assert!(false, "Failed to send fax, did not get a job id")
     }
     println!("{}", res.job_id.clone());
-    return res.job_id
+    return res.job_id;
 }
 
 #[tokio::test]
@@ -42,11 +52,10 @@ async fn test_delete_fax_report() {
     let ji = send_fax().await;
     let client = create_client();
     let res = client.delete_fax_report(ji, None).await.unwrap();
-    if res.deleted == false{
+    if res.deleted == false {
         assert!(false, "failed, because report was not deleted")
     }
 }
-
 
 #[tokio::test]
 async fn test_bulk_operations() {

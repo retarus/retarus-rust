@@ -67,7 +67,7 @@ fn main() {
     watcher.watch("out", RecursiveMode::Recursive).unwrap();
 
 
-    // Load the credentails from environment variables
+    // Load the credentials from environment variables
     let user_id = std::env::var("retarus_userid").unwrap();
     let password = std::env::var("retarus_fax_password").unwrap();
     
@@ -77,7 +77,7 @@ fn main() {
     let sdk = ClientSDK::builder()
         .set_region(Region::Europe)
         .set_customer_number(customer_number)
-        .set_credentiale(Credentials::new(user_id.as_str(), password.as_str()))
+        .set_credentials(Credentials::new(user_id.as_str(), password.as_str()))
         .build();
 
     loop {

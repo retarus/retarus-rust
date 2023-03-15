@@ -38,7 +38,7 @@ async fn main() {
     let client = ClientSDK::builder()
         .set_customer_number(customer_number.to_string())
         .set_region(Region::Singapore)
-        .set_credentiale(Credentials::new(user_id, password))
+        .set_credentials(Credentials::new(user_id, password))
         .build();
     
     // Now let's read a file of a directory.

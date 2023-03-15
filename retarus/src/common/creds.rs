@@ -9,10 +9,10 @@ pub struct Credentials {
 }
 impl <'a> Credentials {
     pub fn new(username: &'a str, password: &'a str) -> Credentials {
-        return Credentials { username: username.to_string(), password: password.to_string()}
+        Credentials { username: username.to_string(), password: password.to_string()}
     }
     pub fn default() -> Credentials {
-        return Credentials{ username: "exmapleUsername".to_string(), password: "yourPassword".to_string()}
+        Credentials{ username: "exmapleUsername".to_string(), password: "yourPassword".to_string()}
     }
 
     /// Create a [Credentials] instance from env. Before you use this function, you need to export following keys:
@@ -26,7 +26,7 @@ impl <'a> Credentials {
 
     pub fn encode(self) -> String {
         let to_encode = format!("{}:{}", self.username, self.password);
-        return base64::encode(to_encode);
+        base64::encode(to_encode)
     }
 
 }

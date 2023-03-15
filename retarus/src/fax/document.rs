@@ -27,13 +27,12 @@ impl Document {
     pub fn new(name: String, data: Vec<u8>, charset: Option<String>) -> Document {
         let processed_data = base64::encode(data);
         let mut chars = "utf-8".to_string();
-        if charset.is_some(){
-            chars = charset.unwrap();
+        
+        if let Some(i) = charset {
+            chars = i;
         }
-        return Document{ name, data: processed_data, charset: chars };
+        Document{ name, data: processed_data, charset: chars }
     }
 
 
 }
-
-

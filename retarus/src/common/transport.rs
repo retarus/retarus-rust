@@ -1,10 +1,12 @@
 use std::{error::Error, time::Duration};
-
 use futures::Future;
 use hyper::{client::HttpConnector, Body, Client, Method, Request, Response};
 use hyper_tls::HttpsConnector;
+use reqwest::{multipart::Form};
 use serde::{Serialize};
 use tokio_compat_02::FutureExt;
+
+use crate::webexpress::job::WebexpressJob;
 
 use super::creds::Credentials;
 
@@ -17,7 +19,7 @@ pub struct Transporter {
 }
 
 impl Transporter {
-    /// Creates a new Transporter that contains the endpoint_uri, credentails and a http client that pools the connections and is able to communitcate with https endpoints.
+    /// Creates a new Transporter that contains the endpoint_uri, credentials and a http client that pools the connections and is able to communicate with https endpoints.
     pub fn new(credentials: Credentials) -> Transporter {
         let https = HttpsConnector::new();
         let client = Client::builder()
@@ -63,6 +65,24 @@ impl Transporter {
         let response = self.client.request(req).compat().await?;
         Ok(response)
     }
+
+
+    pub async fn form_post(
+        &self,
+        uri: String,
+        payload: WebexpressJob,
+    ) -> Result<reqwest::Response, Box<dyn Error>> {
+        let client = reqwest::Client::new();
+        let job: Form = payload.into();
+        println!("Webexpress job {:?}", job);
+        let response = client
+            .post(uri)
+            .multipart(job)
+            .send().await?;
+        Ok(response)
+    }
+
+
     pub async fn delete(&self, uri: String) -> Result<Response<Body>, Box<dyn Error>> {
         let req = Request::builder()
             .uri(uri)
@@ -88,11 +108,11 @@ pub async fn response_to_body(resp: Response<Body>) -> Result<String, Box<dyn Er
 
 
 /// Takes a future in and blocks the current thread until the future completes,
-/// used if your programm should run synchronously.
+/// used if your program should run synchronously.
 pub fn blocking<F: Future>(mut future: F) -> F::Output 
 {
     let runtime = tokio::runtime::Runtime::new().unwrap();
     
     let res = runtime.block_on(future);
-    return res
+    res
 }

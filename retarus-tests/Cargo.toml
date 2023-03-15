@@ -1,6 +1,6 @@
 [package]
 name = "retarus-tests"
-version = "0.1.0"
+version = "0.0.0"
 authors = ["Michael Lichtenecker <michael.lichtenecker@retarus.de>"]
 edition = "2021"
 
@@ -8,6 +8,6 @@ edition = "2021"
 
 [dependencies]
 tokio = { version = "1.19.2", features = ["full"] }
-retarus = { version = "0.1.0", path= "../retarus" }
+retarus = { version = "0.1.0", path= "../retarus", features = ["default"] }
 serde = { version = "1", features = ["derive"] }
 serde_derive = "1.0.137"
