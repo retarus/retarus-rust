@@ -13,8 +13,12 @@ jobs:
     env:
       retarus_userid: ${{ secrets.RETARUS_USERID }}
       retarus_fax_password: ${{ secrets.RETARUS_FAX_PASSWORD }}
-      retarus_sms_password: ${{ secrets.RETARUS_SMS_PASSWORD }}
       retarus_customer_number: ${{ secrets.CUSTOMER_NUMBER }}
+
+      retarus_sms_userid: ${{ secrets.RETARUS_USERID }}
+      retarus_sms_password: ${{ secrets.RETARUS_SMS_PASSWORD }}
+      webexpress_username: ${{ secrets.WEBEXPRESS_USERNAME }}
+      webexpress_password: ${{ secrets.WEBEXPRESS_PASSWORD }} 
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
