@@ -8,7 +8,6 @@ on:
 
 jobs:
   testing:
-    needs: build
     runs-on: ubuntu-22.04
     env:
       retarus_userid: ${{ secrets.RETARUS_USERID }}
@@ -57,7 +56,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
       - uses: actions/upload-artifact@v2
         with:
-          path: target/release/.rustc_info.json
+          path: retarus/Cargo.toml
           name: ${{ github.sha }}-ci_rust
 
       
