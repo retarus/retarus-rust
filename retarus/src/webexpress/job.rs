@@ -43,7 +43,7 @@ impl From<WebexpressJob> for multipart::Form {
 
 
         let mut buffer = vec![0; file_path.metadata().unwrap().len() as usize];
-        file.read(&mut buffer).expect("buffer overflow");
+        file.read_exact(&mut buffer).expect("buffer overflow");
         println!("File length: {:?}", buffer.len());
         let filename = file_path.file_name().unwrap().to_str().unwrap().to_string();
         let file_part = multipart::Part::bytes(buffer).file_name(filename).mime_str("text/csv").unwrap();
