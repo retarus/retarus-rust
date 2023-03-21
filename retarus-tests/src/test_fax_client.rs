@@ -43,7 +43,7 @@ async fn test_get_fax_report() {
     println!("{:?}", res);
     let res = res.unwrap();
     if res.job_id == String::new() {
-        assert!(false, "Eventually result wrong parsed")
+        assert!(false, "Eventually result falsely parsed")
     }
 }
 

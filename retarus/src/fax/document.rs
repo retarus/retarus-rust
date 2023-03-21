@@ -13,7 +13,6 @@ pub struct Document{
 impl Document {
     /// Create a new instance of the document struct, default encoding is UTF-8
     /// 
-    /// 
     /// # Examples
     /// ```rust
     /// use retarus::fax::document::Document;

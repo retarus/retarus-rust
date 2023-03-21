@@ -53,7 +53,7 @@ async fn main() {
         .add_recipient("your receipient".to_string())
         .build();
         
-        // checks if the fax was sucessfull submitted
+        //  checks if the fax was sucessfully submitted
         let res = match client.send_job(None, job).await{
             Ok(res) => res,
             Err(err) => panic!("{}", err)
@@ -69,7 +69,7 @@ async fn main() {
     let res = client.get_fax_report(job_id.clone(), None).await;
     println!("{:#?}", res);
 
-    // get all lates fax reports
+    // get all fax reports which are currently available
     let res = client.get_fax_reports(None).await;
     println!("{:#?}", res);
 
@@ -77,7 +77,7 @@ async fn main() {
     let res = client.delete_fax_report(job_id, None).await;
     println!("{:#?}", res);
 
-    // get all lates fax reports
+    // Tries to fetch available fax reports, after deleting all of them before.
     let res = client.get_fax_reports(None).await;
     println!("{:#?}", res);
 }

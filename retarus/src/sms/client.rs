@@ -75,21 +75,6 @@ impl SmsClient {
         }
         Err("No report found!".into())
     }
-
-    // /// Gets all sms reports that match given criteria. Use the SmsFilter object to specify what to match.
-    // pub async fn filter_sms_jobs(&self, filter: SmsFilter) -> Result<Vec<JobReport>, Box<dyn Error>> {
-    //     for server in &self.region_uri.servers {
-    //         let uri = format!("{}/rest/v1/jobs{}", server, filter.create_filter_string());
-    //         let res = self.transporter.get(uri).await?;
-    //         if res.status() != StatusCode::OK {
-    //             continue;
-    //         }
-    //         let a = response_to_body(res).await?;
-    //         let x: Vec<JobReport> = serde_json::from_str(a.as_str())?;
-    //         return Ok(x);
-    //     }
-    //     Err("No report found!".into())
-    // }
 }
 
 

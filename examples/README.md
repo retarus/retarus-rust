@@ -1,6 +1,6 @@
 ## Examples
 
-This folder contains a small set of applications which should visualize how the sms sdk can be used to dispatch messages and fulfill your business needs.
+This folder contains a small set of applications which should visualize how the SMS and Fax SDK can be used to dispatch messages and fulfill your business needs.
 
 ### Examples
 

@@ -17,7 +17,7 @@ pub struct Options {
     flash: Option<bool>,
     /// customer_ref: Recommended max. 64 characters.
     customer_ref: Option<String>,
-    /// validity_min: Validity of the SMS in minutes. When 0 the provider’s default value is used. Otherwise, values must be between 5 and 2880 minutes.
+    /// validity_min: Validity of the SMS in minutes. If set to 0, the provider’s default value is used. Otherwise, values must be between 5 and 2880 minutes.
     validity_min: Option<i32>,
     /// max_parts: Maximum allowed parts in a multi-part message. Values must be between 1 and 20. Longer messages are truncated.
     max_parts: Option<i32>,
@@ -94,7 +94,7 @@ impl SmsJobBuilder {
         self
     }
     pub fn configure_sms(mut self, options: Options) -> SmsJobBuilder {
-        //! Override your default configuration set in the myEAS, how the sms will be processed.
+        //! Override your default configuration set in the EAS portal how the sms will be processed.
         self.options = Some(options);
         self
     }

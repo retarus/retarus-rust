@@ -12,7 +12,6 @@ pub struct ClientSDK {
     region_uri: RegionUri,
     customer_number: String,
 }
-// todo document the functions, what they do, how to use them (Example)
 
 impl ClientSDK {
     /// Create a ClientSDK instance with builder, just set the necessary parameters and you are ready to go:

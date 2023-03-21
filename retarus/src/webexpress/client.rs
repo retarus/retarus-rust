@@ -1,9 +1,5 @@
 use std::{error::Error};
-
-
-
 use crate::common::{creds::Credentials, uri::{RegionUri, Region}, transport::Transporter};
-
 use super::job::WebexpressJob;
 
 
@@ -52,13 +48,13 @@ impl WebExpressBuilder {
         self.region = region;
         self
     }
-    /// The builder function validates the given parameter and will return a instance of [SmsClient].
+    /// The builder function validates the given parameter and will return a instance of [WebexpressClient].
     pub fn build(self) -> WebexpressClient {
         assert!(
             self.credentails.password != "",
-            "Credentials must be set to use the sms client"
+            "Credentials must be set to use the webexpress client"
         );
-        assert!(self.region == Region::Europe, "The sms service is currently only processed in the European region, select Region::Europe as your region.");
+        assert!(self.region == Region::Europe, "The webexpress service is currently only processed in the European region, select Region::Europe as your region.");
 
         return WebexpressClient {
             transporter: Transporter::new(self.credentails.clone()),

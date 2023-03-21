@@ -9,7 +9,7 @@ pub struct Job {
     documents: Vec<Document>,
 }
 impl Job {
-    /// Send a fax to the server.
+    /// Create new fax job.
     /// # Examples
     /// ```rust
     /// use retarus::fax::document::Document;

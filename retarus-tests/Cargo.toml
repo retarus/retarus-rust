@@ -1,7 +1,7 @@
 [package]
 name = "retarus-tests"
 version = "0.0.0"
-authors = ["Michael Lichtenecker <michael.lichtenecker@retarus.de>"]
+authors = ["Retarus GmbH <Developers@retarus.com>"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

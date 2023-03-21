@@ -49,11 +49,3 @@ fn send_sms() {
 
     assert_eq!(report.job_id, res.job_id);
 }
-
-// #[test]
-// fn test_filter_sms_jobs() {
-//     let client = create_client();
-//     let filter = SmsFilter::builder().only_job_ids(true).build();
-//     let res = blocking(client.filter_sms_jobs(filter)).unwrap();
-//     assert_eq!(res[0].src, None)
-// }

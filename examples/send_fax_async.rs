@@ -55,7 +55,7 @@ async fn main() {
         .add_recipient("+49000000000".to_string())
         .build();
         
-        // checks if the fax was successful submitted
+        // checks if the fax was successfuly submitted
         let res = match client.send_job(None, job).await{
             Ok(res) => res,
             Err(err) => panic!("{}", err)
