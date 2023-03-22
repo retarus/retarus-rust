@@ -18,7 +18,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v2.26.0
         with:
           github_token: ${{secrets.gh_token}}
-          workflow: ci.yaml
+          workflow: ci.yml
           name: ${{ github.sha }}-ci_rust
       
       - name: upload crate to crates.io
