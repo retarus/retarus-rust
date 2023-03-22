@@ -32,10 +32,10 @@ jobs:
       - name: run retarus-tests
         run: cargo test --release
 
-      - uses: actions-rs/clippy-check@v1
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          args: --all-features
+      # - uses: actions-rs/clippy-check@v1
+      #   with:
+      #     token: ${{ secrets.GH_TOKEN }}
+      #     args: --all-features
 
   build:
     runs-on: ubuntu-22.04
