@@ -8,7 +8,7 @@ use std::{env, error::Error};
 /// use retarus::common::creds::Credentials;
 /// 
 /// let creds = Credentials::new("abc", "password123");
-/// ´´´
+/// ```
 #[derive(Debug, Clone, PartialEq)]
 pub struct Credentials {
     pub username: String,
