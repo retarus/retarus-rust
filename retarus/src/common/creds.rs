@@ -5,6 +5,8 @@ use std::{env, error::Error};
 /// 
 /// ## Example
 /// ```rust
+/// use retarus::common::creds::Credentials;
+/// 
 /// let creds = Credentials::new("abc", "password123");
 /// ´´´
 #[derive(Debug, Clone, PartialEq)]
