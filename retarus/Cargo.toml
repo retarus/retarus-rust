@@ -4,7 +4,9 @@ version = "0.1.0"
 authors = ["Retarus GmbH <developers@retarus.com>"]
 edition = "2021"
 repository = "https://github.com/retarus/retarus-rust"
+description="The official Rust SDK provided by Retarus to contact our messaging services with the lightning speed of the rust programming language."
 homepage = "https://github.com/retarus/retarus-rust"
+license = "MIT AND Apache-2.0"
 
 
 [dependencies]
