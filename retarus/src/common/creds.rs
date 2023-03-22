@@ -2,6 +2,11 @@ use std::{env, error::Error};
 
 
 /// the Credentails struct should contain the username and password to authorize the requests sent to the server.
+/// 
+/// ## Example
+/// ```rust
+/// let creds = Credentials::new("abc", "password123");
+/// ´´´
 #[derive(Debug, Clone, PartialEq)]
 pub struct Credentials {
     pub username: String,
